@@ -1,11 +1,17 @@
 const express = require('express');
+const hbs = require('hbs');
 
 var app = express();
 
+app.set('view engine','hbs');
 app.use(express.static(__dirname + '/public'))
 // Set ups handler of http Get request
 app.get('/', (req, res) => {
-  res.send('Hello Express!')
+  res.render('home.hbs',{
+    pageTitle:'Home Page',
+    welcomeSays: "blah blah I know this already",
+    currentYear: new Date().getFullYear()
+  })
 })
 
 app.get('/bad',(req,res) => {
@@ -16,6 +22,13 @@ app.get('/bad',(req,res) => {
       'empty',
       'array'
     ]
+  })
+})
+
+app.get('/about',(req,res)=>{
+  res.render('about.hbs', {
+    pageTitle: 'About Page',
+    currentYear: new Date().getFullYear()
   })
 })
 // Listen on a parituclar port
